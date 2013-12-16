@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Homework #1</title>
+	<style>
+		code, pre {background:#f0f0f0; color:#333; padding:6px;} 
+		dt{ text-decoration: underline} 
+		h3 { background: #555; color:#eee;} 
+	</style>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+	<h3>Write a function that performs a set difference with two outputs.</h3>
+	<p>- A and B are sorted sets of integers.</p>
+	<p>- This function is to output {A - B} and {B - A}.</p>	
+
+	<h3>Code Provided</h3>
+	<dl>
+		<dt>Array of Integers</dt>
+		<dd>A = 1 2 3 8 9</dd>
+		<dd>B = 2 5 9 10 12 14</dd>
+		<dt>Array of Strings</dt>
+		<dd>C = "Boys", "Girls", "Zend", "Barcelona", "Come 'on"</dd>
+		<dd>D = "Jurgen", "Berlusconi", "Paté di pato", "Frio", "Boys", "Zend"</dd>
+	</dl>	
+
+	<h3>Expected</h3>
+	<dl>
+		<dt>Array of Integers</dt>
+		<dd>{A - B} = 1 3 8</dd>
+		<dd>{B - A} = 5 10 12 14</dd>
+		<dt>Array of Strings</dt>
+		<dd>{C - D} = "Girls", "Barcelona", "Come 'on"</dd>
+		<dd>{D - C} = "Jurgen", "Berlusconi", "Paté di pato", "Frio"</dd>
+	</dl>	
+
+	<h3>Responses</h3>
+	<div id="responses">
+		<h4>Js</h4>
+		<pre id="jsresponse"></pre>	
+
+		<h4>Coffee</h4>
+		<pre id="coffeeresponse"></pre>	
+
+		<h4>Php</h4>
+		<pre id="phpresponse"></pre>	
+	</div>
+
+	<script type="text/javascript" src="./vanillajs/homework1.js"></script>
+	<script type="text/javascript" src="./coffee/homework1coffee.js"></script>
+	<script>
+		$(function()
+		{
+			$.ajax({
+				url: 'php/homework1.php',
+				success: function(data)
+				{
+					$.each(JSON.parse(data), function(idx, val)
+					{
+						$('#phpresponse').append(val+'<br>');
+					});
+				},
+				error: function(jQhxr, options, error)
+				{
+					alert(jQxhr.status);
+					alert(error);
+				}
+			});
+		});
+	</script>
+</body>
+</html>

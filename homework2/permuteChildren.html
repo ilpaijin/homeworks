@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>permuteChildren()</title>
+</head>
+<body>
+	<!--
+
+	You may use this HTML space for the tests. However, please clean it up before submitting your work.
+
+	-->
+	<div id="team" class="nothing">
+		Hi!
+		<p class="alfa">alfa</p>
+		<p class="beta">beta</p>
+		<p class="gamma">gamma</p>
+	</div>
+
+	<ul>
+		<li>Apple
+			<ul>
+				<li>Golden</li>
+				<li>Lady</li>
+			</ul>
+		</li>
+		<li>Pear</li>
+		<li>Strawberry</li>
+		<li>Lemon</li>
+		This/these text node(s) will be removed by permuteChildren()
+	</ul>
+
+<script type="text/javascript">
+
+function permuteChildren(parent)
+{
+	console.info(parent);
+	/* - Verifies that the parent is a DOM node of type 'Element'. If not, it abandons by returning false. */
+	if (!parent.hasChildNodes() || parent.nodeType != Node.ELEMENT_NODE)
+	{
+		return false;
+	}
+
+	/* - Cleans parent from any direct child that is not of type 'Element'. */
+	for(var i=0, len = parent.childNodes.length; i < len; i++)
+	{
+		if(parent.childNodes[i] && parent.childNodes[i].nodeType !== 1)
+		{
+			parent.removeChild(parent.childNodes[i]);
+		}
+	}
+
+	/* - Randomly permutes parent's direct child elements. */
+	// however the best algorithm is https://github.com/coolaj86/knuth-shuffle
+	
+	var len = it = parent.childNodes.length;
+	
+	while(len !== -1)
+	{
+		r1 = Math.floor((Math.random() * it));
+		r2 = Math.floor((Math.random() * it));
+
+		replaced = parent.replaceChild(parent.childNodes[r1], parent.childNodes[r2]);
+		parent.appendChild(replaced);
+	
+		len--;
+	}
+
+	return true;
+}
+
+permuteChildren(document.getElementById('team'));
+permuteChildren(document.getElementsByTagName('ul')[0]);
+
+/*
+You may use this JavaScript space for the tests. However, please clean it up before submitting your work.
+*/
+
+
+</script>
+
+</body>
+</html>
