@@ -2,15 +2,8 @@
 <html>
 <head>
 <title>rectangles.html</title>
+
 <script type="text/javascript">
-
-
-var	nRectangles = 10,
-	containerWidth = 600,
-	containerHeight = 600,
-	minRectDim = 50,
-	maxRectDim = 100;
-
 /*
 
 Specifications:
@@ -50,8 +43,26 @@ Further notes:
 
 /* Please write your JavaScript code here */
 
+
+	
+	window.onload = function()
+	{
+		jin.generate({
+			nRectangles : 10,
+			containerWidth : 600,
+			containerHeight : 600,
+			minRectDim : 50,
+			maxRectDim : 100
+		});
+
+		jin.createContainer();//optional x,y
+
+		jin.createShapes();
+	}
+
 </script>
-<!-- If using a framework, please insert <script src> here -->
+
+<script src="./lib/rectangled.js"></script>
 </head>
 <body><!-- 
 

@@ -1,0 +1,9 @@
+{
+	"name": "homework1",
+	"author": "ilpaijin@gmail.com",
+	"autoload":{
+		"psr-0": {
+			"Ilpaijin":"src/"
+		}
+	}
+}

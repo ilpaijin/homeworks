@@ -4,36 +4,11 @@
 <title>permuteChildren()</title>
 </head>
 <body>
-	<!--
-
-	You may use this HTML space for the tests. However, please clean it up before submitting your work.
-
-	-->
-	<div id="team" class="nothing">
-		Hi!
-		<p class="alfa">alfa</p>
-		<p class="beta">beta</p>
-		<p class="gamma">gamma</p>
-	</div>
-
-	<ul>
-		<li>Apple
-			<ul>
-				<li>Golden</li>
-				<li>Lady</li>
-			</ul>
-		</li>
-		<li>Pear</li>
-		<li>Strawberry</li>
-		<li>Lemon</li>
-		This/these text node(s) will be removed by permuteChildren()
-	</ul>
 
 <script type="text/javascript">
 
 function permuteChildren(parent)
 {
-	console.info(parent);
 	/* - Verifies that the parent is a DOM node of type 'Element'. If not, it abandons by returning false. */
 	if (!parent.hasChildNodes() || parent.nodeType != Node.ELEMENT_NODE)
 	{
@@ -67,14 +42,6 @@ function permuteChildren(parent)
 
 	return true;
 }
-
-permuteChildren(document.getElementById('team'));
-permuteChildren(document.getElementsByTagName('ul')[0]);
-
-/*
-You may use this JavaScript space for the tests. However, please clean it up before submitting your work.
-*/
-
 
 </script>
 

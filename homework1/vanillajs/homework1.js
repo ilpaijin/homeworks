@@ -1,8 +1,8 @@
-(function(window, me)
+(function(global, me)
 {
 	'use strict';
 
-	var self = window[me] || (window[me] = {});
+	var self = global[me] || (global[me] = {});
 
 	var setDiff = function(f,l)
 	{
@@ -34,7 +34,7 @@
 		return result;
 	}
 
-	window[me].setDifference = setDiff;
+	self.setDifference = setDiff;
 
 })(this,'ilpaijin');
 
