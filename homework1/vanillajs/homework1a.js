@@ -6,21 +6,28 @@
 
 	var setDiff = function(f,l)
 	{
-		var result='';
+		var result=[],
+			i = 0,
+			j = 0;
 
-		l.contains = function(el)
+		l.contains = function(i)
 		{
 			for(var x in this)
 			{
-				if(this.hasOwnProperty(x) && this[x] == el)
+				if(this.hasOwnProperty(x) && this[x] > i)
+				{
+					return false;
+				}
+
+				if(this.hasOwnProperty(x) && this[x] == i)
 				{
 					return true;
 				}
 			}
 
 			return false;
-		}
-		
+		}	
+
 		for(var i = 0, len = f.length; i < len; i++)
 		{
 			if (!l.contains(f[i]))
@@ -28,6 +35,8 @@
 				result += f[i]+' ';
 			}
 		}
+
+		console.info(result);
 
 		return result;
 	}
