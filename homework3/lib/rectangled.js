@@ -41,9 +41,9 @@
 	 */
 	var generate = function(options)
 	{
-		this.settings = options; 
-		this.hoverTimeOut = 0;
-		this.maxZIndex = 0;
+		jin.settings = options; 
+		jin.hoverTimeOut = 0;
+		jin.maxZIndex = 0;
 	};	
 
 	/**
@@ -57,8 +57,8 @@
 		var div = document.createElement('div');
 		div.setAttribute('id', 'container');
 		div.style.background = helpers.backgRandom();
-		div.style.width = this.settings.containerWidth + 'px';
-		div.style.height = this.settings.containerHeight + 'px';
+		div.style.width = jin.settings.containerWidth + 'px';
+		div.style.height = jin.settings.containerHeight + 'px';
 		div.style.position = "absolute";
 		div.style.left = (x || 0) + 'px';
 		div.style.top = (y || 0) + 'px';
@@ -71,24 +71,25 @@
 	 */
 	var createShapes = function()
 	{
-		for(var i = 0; i < this.settings.nRectangles; i++)
+		for(var i = 0; i < jin.settings.nRectangles; i++)
 		{
 			var div = document.createElement('div');
-			var width = helpers.randomize(this.settings.minRectDim, this.settings.maxRectDim);
-			var height = helpers.randomize(this.settings.minRectDim, this.settings.maxRectDim);
+			var width = helpers.randomize(jin.settings.minRectDim, jin.settings.maxRectDim);
+			var height = helpers.randomize(jin.settings.minRectDim, jin.settings.maxRectDim);
 			div.setAttribute('class', 'nRectangles');
+			div.setAttribute('id', 'nRectangles'+0);
 			div.style.background = helpers.backgRandom();
 			div.style.width = width + 'px';
 			div.style.height = height + 'px';
 			div.style.position = "absolute";
-			div.style.left = helpers.randomize(0, (this.settings.containerWidth - width)) + 'px';
-			div.style.top = helpers.randomize(0, (this.settings.containerHeight - height)) + 'px';
+			div.style.left = helpers.randomize(0, (jin.settings.containerWidth - width)) + 'px';
+			div.style.top = helpers.randomize(0, (jin.settings.containerHeight - height)) + 'px';
 			div.style.zIndex = i;
 			document.getElementById('container').appendChild(div);
 
-			this.maxZIndex = i;
+			jin.maxZIndex = i;
 
-			staticListeners.mouseenter(div,this);
+			staticListeners.mouseenter(div);
 			staticListeners.mouseleave(div);
 		}
 	};
@@ -99,17 +100,27 @@
 	 */
 	var staticListeners = 
 	{
-		mouseenter: function(el,root)
+		mouseenter: function(el)
 		{
-			return el.addEventListener("mouseenter", function()
+			return el.addEventListener("mouseenter", function(ev)
 			{
 				el.style.background = helpers.backgRandom();
 
 				el.hoverTimeOut = setTimeout(function()
 				{
-					el.style.left = helpers.randomize(0, (root.settings.containerWidth - el.clientWidth)) + 'px';
-					el.style.top = helpers.randomize(0, (root.settings.containerHeight - el.clientHeight)) + 'px';
-					el.style.zIndex = root.maxZIndex++;
+					//As alternative implement algorithm Ax < x < Bx && Ay < y < Cy
+					el.style.left = helpers.randomize(0, (jin.settings.containerWidth - el.clientWidth)) + 'px';
+					el.style.top = helpers.randomize(0, (jin.settings.containerHeight - el.clientHeight)) + 'px';
+
+					var hoveredEl = document.elementFromPoint(ev.pageX, ev.pageY);
+					if (hoveredEl.id === el.id)
+					{
+						el.style.left = helpers.randomize(0, (jin.settings.containerWidth - el.clientWidth)) + 'px';
+						el.style.top = helpers.randomize(0, (jin.settings.containerHeight - el.clientHeight)) + 'px';
+					};
+
+					el.style.zIndex = jin.maxZIndex++;
+
 				},3000);
 			});
 		},

@@ -8,11 +8,16 @@
 	{
 		var result='';
 
-		l.contains = function(el)
+		l.contains = function(i)
 		{
 			for(var x in this)
 			{
-				if(this.hasOwnProperty(x) && this[x] == el)
+				if(this.hasOwnProperty(x) && this[x] > i)
+				{
+					return false;
+				}
+
+				if(this.hasOwnProperty(x) && this[x] == i)
 				{
 					return true;
 				}

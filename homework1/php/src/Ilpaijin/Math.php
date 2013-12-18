@@ -66,8 +66,13 @@ class Math
 	 */
 	private function contains($needle, $haystack)
 	{
-		foreach($haystack as $key => $value)
+		foreach($haystack as $value)
 		{
+			if($value > $needle)
+			{
+				return $needle . ' ';
+			}
+
 			if($needle === $value)
 			{
 				return false;
