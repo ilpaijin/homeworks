@@ -193,7 +193,7 @@
 
 					el.style.zIndex = jin.maxZIndex++;
 
-				},3000);
+				},10);
 			});
 		},
 		mouseleave : function(el)
