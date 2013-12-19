@@ -35,6 +35,7 @@
 		}
 
 		return result;
+		
 	}
 
 	self.setDifference = setDiff;

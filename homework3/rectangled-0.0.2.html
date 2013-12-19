@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>rectangles.html</title>
+
+<script type="text/javascript">
+/*
+
+Specifications:
+
+	- The above pseudo-constant values may vary. However, it is guaranteed that:
+
+		a) maxRectDim <= containerWidth / 3
+			and
+		b) maxRectDim <= containerHeight / 3
+
+	- The action takes place in a (containerWidth x containerHeight) container random-color div with top-left corder at 0,0 screen (window) coordinates.
+
+	- On load, nRectangles random-sized (each side minRectDim to maxRectDim pixels included) and random-color rectangles are displayed according to the following rules:
+	
+		a) They must be fully contained within the container div
+		b) Their position is random
+		c) They're all assigned a unique z-index
+
+		The mouse cursor position at load is ignored.
+
+	- Each time a mouse cursor is positioned over a visible part of a rectangle, that rectangle must change color to a new random color.
+
+	- If the cursor remains over for 3 seconds, the rectangle is re-positioned (no animation) in such a way that:
+
+		a) The new position is random, given the following two constraints
+		b) It is no longer under the mouse cursor position
+		c) It is still fully visible within the container div
+		d) It gains the highest z-index, while the z-index order of other rectangles remains unchanged
+
+Further notes:
+
+	- You may use a framework, yet raw DOM would be appreciated.
+
+	- Focus on clean and readable/understandable code before focusing on performance.
+
+*/
+
+/* Please write your JavaScript code here */
+
+
+	
+	window.onload = function()
+	{
+		jin.generate({
+			container: 'div.mondo',
+			nRectangles : 10,
+			containerWidth : 600,
+			containerHeight : 600,
+			minRectDim : 50,
+			maxRectDim : 100
+		});
+	}
+
+</script>
+
+<script src="./lib/rectangled-0.0.2.js"></script>
+</head>
+<body><!-- 
+
+	No HTML here! Everything must be written in JavaScript.
+	
+--></body>
+</html
