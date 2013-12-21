@@ -1,5 +1,5 @@
 /*!
- *  rectangled v0.0.1
+ *  rectangled v0.0.2
  *
  *  (c) 2013, ilpaijin@gmail.com
  *
@@ -32,54 +32,26 @@
 				}
 				return color;
 			},
-			extend: function(dest, target)
+			extend: function(dest)
 			{
-				for(var p in target)
+				var args = Array.prototype.slice.call(arguments, 1);
+
+				args.forEach(function(o)
 				{
-					dest[p] = target[p];
-				}
+					for(var p in o)
+					{
+						dest[p] = o[p];
+					}
+				});
+
 				return dest;
 			}
 		},
 		attributesMap = { 
 			"#": "id", 
 			".": "class"
-		};
-	
-	/**
-	 * [Shape Constructor]
-	 * @param {[type]} options [description]
-	 */
- 	var Shape = function(options)
- 	{
- 		this.options = {
- 			el: "div",
- 			unique: Math.random()
- 		};	
-
-		helpers.extend(this.options, options);
-
-		this.el = document.createElement(this.options.el);
-
-		var width = helpers.randomize(jin.settings.minRectDim, jin.settings.maxRectDim);
-		var height = helpers.randomize(jin.settings.minRectDim, jin.settings.maxRectDim);
-
-		this.el.setAttribute('class', 'nRectangles');
-		this.el.setAttribute('id', 'nRectangles'+this.options.unique);
-		this.el.style.background = helpers.backgRandom();
-		this.el.style.width = width + 'px';
-		this.el.style.height = height + 'px';
-		this.el.style.position = "absolute";
-		this.el.style.left = helpers.randomize(0, (jin.settings.containerWidth - width)) + 'px';
-		this.el.style.top = helpers.randomize(0, (jin.settings.containerHeight - height)) + 'px';
-		this.el.style.zIndex = this.options.unique;
-
-		jin.maxZIndex = this.options.unique;
-
-		staticListeners.mouseenter(this.el);
-		staticListeners.mouseleave(this.el);
- 	};
-
+		},
+		shapeListeners = ['mouseenter', 'mouseleave'];
 
 	/**
 	 * [generate description]
@@ -119,6 +91,38 @@
 	};	
 
 	/**
+	 * [Shape Constructor]
+	 * @param {[type]} options [description]
+	 */
+ 	var Shape = function(options)
+ 	{
+ 		this.listeners = {};
+ 		this.options = {
+ 			el: "div",
+ 			unique: Math.random()
+ 		};	
+
+		helpers.extend(this.options, options);
+
+		this.el = document.createElement(this.options.el);
+
+		var width = helpers.randomize(jin.settings.minRectDim, jin.settings.maxRectDim);
+		var height = helpers.randomize(jin.settings.minRectDim, jin.settings.maxRectDim);
+
+		this.el.setAttribute('class', 'nRectangles');
+		this.el.setAttribute('id', 'nRectangles'+this.options.unique);
+		this.el.style.background = helpers.backgRandom();
+		this.el.style.width = width + 'px';
+		this.el.style.height = height + 'px';
+		this.el.style.position = "absolute";
+		this.el.style.left = helpers.randomize(0, (jin.settings.containerWidth - width)) + 'px';
+		this.el.style.top = helpers.randomize(0, (jin.settings.containerHeight - height)) + 'px';
+		this.el.style.zIndex = this.options.unique;
+
+		jin.maxZIndex = this.options.unique;
+ 	};
+
+	/**
 	 * [createContainer description]
 	 * @param  {[type]} x [description]
 	 * @param  {[type]} y [description]
@@ -152,6 +156,14 @@
 				unique: i
 			});
 
+			shapeListeners.forEach(function(l)
+			{
+				s.listeners[l] = function()
+				{
+					return listeners[l].call(s, s.el);
+				}();
+			});
+
 			fragment.appendChild(s.el);
 		}
 
@@ -167,11 +179,10 @@
 	};
 
 	/**
-	 * [staticListener description]
+	 * [listeners description]
 	 * @type {Object}
 	 */
-	var staticListeners = 
-	{
+	var listeners = {
 		mouseenter: function(el)
 		{
 			return el.addEventListener("mouseenter", function(ev)
@@ -196,7 +207,7 @@
 				},10);
 			});
 		},
-		mouseleave : function(el)
+		mouseleave: function(el)
 		{
 			return el.addEventListener("mouseleave", function()
 			{
